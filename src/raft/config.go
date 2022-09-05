@@ -8,20 +8,24 @@ package raft
 // test with the original before submitting.
 //
 
-import "6.824/labgob"
-import "6.824/labrpc"
-import "bytes"
-import "log"
-import "sync"
-import "sync/atomic"
-import "testing"
-import "runtime"
-import "math/rand"
-import crand "crypto/rand"
-import "math/big"
-import "encoding/base64"
-import "time"
-import "fmt"
+import (
+	"bytes"
+	"log"
+	"math/rand"
+	"runtime"
+	"sync"
+	"sync/atomic"
+	"testing"
+
+	"6.824/labgob"
+	"6.824/labrpc"
+
+	crand "crypto/rand"
+	"encoding/base64"
+	"fmt"
+	"math/big"
+	"time"
+)
 
 func randstring(n int) string {
 	b := make([]byte, 2*n)
@@ -195,7 +199,7 @@ func (cfg *config) ingestSnap(i int, snapshot []byte, index int) string {
 		return "snapshot Decode() error"
 	}
 	if index != -1 && index != lastIncludedIndex {
-		err := fmt.Sprintf("server %v snapshot doesn't match m.SnapshotIndex", i)
+		err := fmt.Sprintf("server %v snapshot doesn't match m.SnapshotIndex,index:%v,lastIncludedIndex:%v", i, index, lastIncludedIndex)
 		return err
 	}
 	cfg.logs[i] = map[int]interface{}{}
